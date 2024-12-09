@@ -15,9 +15,25 @@
     <label>Search for a pokemon using their Pokedex Id or Name</label>
     <input type="text" asp-for="SearchedID" />
     <button type="submit" asp-page-handler="">Submit search</button>
+
+    @if(Model.Pokemon != null)
+{
+<div>
+    
+    <h1>@Model.Pokemon.Name</h1>
+    @if(!Model.IsShiny){
+                <img src="@Model.Pokemon.Sprites.Front_default" />
+                <img src="@Model.Pokemon.Sprites.Back_default" />
+    }
+    else {
+                <img src="@Model.Pokemon.Sprites.Front_shiny" />
+                <img src="@Model.Pokemon.Sprites.Back_shiny" />
+    }
+    <button type="submit" asp-page-handler="Shiny">Toggle Shiny</button>
+                @* <button type="submit" asp-page-handler="Next">Next</button>
+                <button type="submit" asp-page-handler="Previous">Previous</button> *@
+</div>
+}
     </form>
 </div>
 
-<div>
-
-</div>

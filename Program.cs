@@ -1,5 +1,8 @@
-var builder = WebApplication.CreateBuilder(args);
+using PokemonFinder.Services;
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHttpClient<PokemonAPIService>();
+builder.Services.AddScoped<PokemonAPIService>();
 // Add services to the container.
 builder.Services.AddRazorPages();
 
