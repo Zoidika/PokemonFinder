@@ -5,6 +5,19 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Pokemon Finder</h1>
+    <p>Learn about <a href="www.wikipedia.com/pokemon">Pokemon Here!</a>.</p>
+</div>
+
+
+<div>
+    <form method="post">
+    <label>Search for a pokemon using their Pokedex Id or Name</label>
+    <input type="text" asp-for="SearchedID" />
+    <button type="submit" asp-page-handler="">Submit search</button>
+    </form>
+</div>
+
+<div>
+
 </div>

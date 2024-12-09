@@ -11,8 +11,13 @@ namespace PokemonFinder.Pages
         {
             _logger = logger;
         }
+        [BindProperty]
+        public string SearchedID { get; set; }
+        public async Task OnGet()
+        {
 
-        public void OnGet()
+        }
+        public async Task OnPost()
         {
 
         }
