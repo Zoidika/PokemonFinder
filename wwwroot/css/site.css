@@ -19,4 +19,29 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: lightslategrey;
+}
+
+.pokedex {
+    
+}
+.pokedex-img {
+    height: 400px;
+    width: 600px;
+    z-index: -1;
+    justify-content: center;
+    position: absolute;
+    display: flex;
+}
+.poke-pic1{
+    z-index:0;
+    display: flex;
+    position:absolute;
+    padding-left:30px;
+    padding-top:45px;
+    height: 150px;
+    width: 150px;
+}
+.poke-pic2{
+    z-index:0;
 }
