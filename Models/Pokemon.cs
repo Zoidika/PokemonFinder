@@ -9,6 +9,7 @@
         public int Order { get; set; }
         public PokemonSprites Sprites { get; set; }
         public List<Stats> Stats { get; set; }
+        public List<Types> Types { get; set; }
     }
     public class PokemonSprites
     {
@@ -30,5 +31,12 @@
         public string Name { get; set; }
         public string url { get; set; }
     }
-
+    public class Types
+    {
+        public Type Type { get; set; }
+    }
+    public class Type
+    {
+        public string Name { get; set; }
+    }
 }

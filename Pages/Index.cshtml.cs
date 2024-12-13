@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PokemonFinder.Models;
 using PokemonFinder.Services;
+using System.Security.Cryptography.X509Certificates;
 
 namespace PokemonFinder.Pages
 {
@@ -21,11 +22,20 @@ namespace PokemonFinder.Pages
         public string SearchedID { get; set; }
         public Pokemon Pokemon { get; set; }
         public bool IsShiny { get; set; } 
+        public bool Error { get; set; }
         public async Task OnGet()
         {
             //await sessionService.SaveItem("Potato", "Fishy");
             //await service.GetAllPokemon();
             //await service.GetAPokemon("5");
+
+            string Horse = "horse";
+            string Dog = "dog";
+
+            Console.WriteLine(string.Join(" , , , , ", Horse, Dog));
+
+
+
         }
         public async Task OnPost()
         {
@@ -33,6 +43,8 @@ namespace PokemonFinder.Pages
             //var test = await sessionService.GetItem<string>("Fishy");
             sessionService.ClearSessionData();
             await sessionService.SaveItem(Pokemon, "CachedPokemon");
+
+            
             
         }
         public async Task OnPostShiny()
@@ -74,8 +86,16 @@ namespace PokemonFinder.Pages
         }
         public async Task GetData()
         {
+            
             var pokemon = await service.GetAPokemon(SearchedID.ToLower());
-            Pokemon = pokemon;
+            if (pokemon != null)
+            {
+                Pokemon = pokemon;
+            }
+            else {
+                Error = true;
+            }
+            
             //await sessionService.GetItem<Pokemon>("CachedPokemon");
         }
     }

@@ -66,9 +66,6 @@ body {
     justify-content: center;
 }
 .poke-name{
-    position:absolute;
-    top:290px;
-    left:100px;
     font-size: 20px;
 }
 .submit-button{
@@ -100,7 +97,28 @@ body {
     align-items: center;
     position:absolute;
     top:238px;
-    left:95px;
+    left:94px;
     height:26px;
     width:90px;
 }
+.info {
+    background-color: white;
+    position:absolute;
+    height:290px;
+    width:230px;
+    left: 325px;
+    top: 58px;
+    border-radius: 1%;
+    padding-left:15px;
+    padding-top: 10px;
+}
+.name-id {
+    position: absolute;
+    background-color:white;
+    height: 65px;
+    width: 239px;
+    top: 286px;
+    left: 32px;
+    border: solid black;
+}
+

@@ -19,8 +19,12 @@ namespace PokemonFinder.Services
         public async Task<Pokemon> GetAPokemon(string identifier)
         {
             var result = await httpClient.GetAsync($"api/pokemon/{identifier}");
-            Pokemon result2 = await result.Content.ReadFromJsonAsync<Pokemon>();
-            return result2;
+            if (result.IsSuccessStatusCode)
+            {
+                Pokemon result2 = await result.Content.ReadFromJsonAsync<Pokemon>();
+                return result2;
+            }
+            else { return null; }
         }
     }
 }
