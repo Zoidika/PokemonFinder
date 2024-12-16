@@ -47,6 +47,17 @@ namespace PokemonFinder.Pages
             
             
         }
+
+        public async Task OnPostRandom()
+        {
+            Pokemon = await sessionService.GetItem<Pokemon>("CachedPokemon");
+            Random random = new Random();
+            int rando1 = random.Next(1, 1026);
+            SearchedID = $"{rando1}";
+            await GetData();
+            await sessionService.SaveItem(Pokemon, "CachedPokemon");
+        }
+
         public async Task OnPostShiny()
         {
             IsShiny = await sessionService.GetItem<bool>("CachedShiny");
