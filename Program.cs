@@ -1,5 +1,18 @@
-var builder = WebApplication.CreateBuilder(args);
+using PokemonFinder.Services;
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = ".PokemonApp.Session";
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient<PokemonAPIService>();
+builder.Services.AddScoped<PokemonAPIService>();
+builder.Services.AddScoped<SessionService>();
 // Add services to the container.
 builder.Services.AddRazorPages();
 
@@ -20,6 +33,10 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.UseSession();
+
 app.MapRazorPages();
 
 app.Run();
+
+

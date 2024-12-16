@@ -5,6 +5,62 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Pokemon Finder</h1>
+    <p>Learn about <a href="www.wikipedia.com/pokemon">Pokemon Here!</a>.</p>
 </div>
+
+
+<div class="form-div">
+    <form method="post" class="form">
+        <button class="RandomButton" type="submit" asp-page-handler="Random">Random Pokemon</button>
+    <label>Search for a pokemon using their Pokedex Id or Name:</label>
+    <input type="text" asp-for="SearchedID" />
+    <button type="submit" class="submit-button" asp-page-handler="">Submit search</button>
+
+    @if(Model.Pokemon != null)
+{
+<div>
+    <div class="pokedex">
+                    <img class="pokedex-img" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7aecb5bf-c976-4994-a30a-049edab52085/d88yuzp-c63eab9c-b575-4bd7-8544-4286c6dfa7de.png/v1/fill/w_1001,h_798,q_75,strp/pokedex_template__by_mscreepy-d88yuzp.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sIm9iaiI6W1t7InBhdGgiOiIvZi83YWVjYjViZi1jOTc2LTQ5OTQtYTMwYS0wNDllZGFiNTIwODUvZDg4eXV6cC1jNjNlYWI5Yy1iNTc1LTRiZDctODU0NC00Mjg2YzZkZmE3ZGUucG5nIiwid2lkdGgiOiI8PTEwMDEiLCJoZWlnaHQiOiI8PTc5OCJ9XV19.lYEc_5PPsiwk3fLBky3cHYw-Pl5yzGvQ4bwBQOXzIjw" />
+
+                    <div class="info">
+                        <p>HP: @Model.Pokemon.Stats.Where(e => e.Stat.Name == "hp").Select(e => e.Base_stat).First()</p>
+                        <p>Attack: @Model.Pokemon.Stats.Where(e => e.Stat.Name == "attack").Select(e => e.Base_stat).First()</p>
+                        <p>Defence: @Model.Pokemon.Stats.Where(e => e.Stat.Name == "defense").Select(e => e.Base_stat).First()</p>
+                        <p>Special Attack: @Model.Pokemon.Stats.Where(e => e.Stat.Name == "special-attack").Select(e => e.Base_stat).First()</p>
+                        <p>Special Defence: @Model.Pokemon.Stats.Where(e => e.Stat.Name == "special-defense").Select(e => e.Base_stat).First()</p>
+                        <p>Speed: @Model.Pokemon.Stats.Where(e => e.Stat.Name == "speed").Select(e => e.Base_stat).First()</p>
+                        <p>Types: @(string.Join(" - ", Model.Pokemon.Types.Select(e => e.Type.Name).ToList())) </p>
+                    </div>
+                    <div class="name-id">
+                    <h1 class="poke-name">Name: @Model.Pokemon.Name</h1>
+                    <p>Pokedex number: @Model.Pokemon.Id</p>
+                    </div>
+                    @if (!Model.IsShiny)
+                    {
+                        <img class="poke-pic1" src="@Model.Pokemon.Sprites.Front_default" />
+                        <img class="poke-pic2" src="@Model.Pokemon.Sprites.Back_default" />
+                    }
+                    else
+                    {
+                        <img class="poke-pic1" src="@Model.Pokemon.Sprites.Front_shiny" />
+                        <img class="poke-pic2" src="@Model.Pokemon.Sprites.Back_shiny" />
+                    }
+                    <button class="shiny-button" type="submit" asp-page-handler="Shiny">Toggle Shiny</button>
+                    <button class="next-button" type="submit" asp-page-handler="Next">Next</button>
+                    <button class="previous-button" type="submit" asp-page-handler="Previous">Previous</button>
+    </div>
+    
+    
+            </div>
+        }
+
+        else if(Model.Error == true)
+        {
+            <p>Error Occoured: Please check the spelling of the Pokemon you are searching for or make sure the ID is within the perameters!</p>
+            <p>Minimum Id Number: 1</p>
+            <p>Maximum Id Number: 1025</p>
+        }
+    </form>
+</div>
+
