@@ -44,8 +44,11 @@ namespace PokemonFinder.Pages
             sessionService.ClearSessionData();
             await sessionService.SaveItem(Pokemon, "CachedPokemon");
 
-            
-            
+        }
+        public async Task OnPostDownload()
+        {
+            Console.WriteLine("It works?");
+            await service.DownloadPokemon();
         }
 
         public async Task OnPostRandom()
