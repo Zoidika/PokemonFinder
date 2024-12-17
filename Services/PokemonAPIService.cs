@@ -51,8 +51,9 @@ namespace PokemonFinder.Services
                 Pokemon result2 = await result.Content.ReadFromJsonAsync<Pokemon>();
                 Pokemon.Add(result2);
             }
-            
 
+
+            List<DBPokemon> dBPokemons = Pokemon.Select(e => new DBPokemon(e.Id, e.Name, e.Sprites.Back_default, e.Sprites.Back_shiny, e.Sprites.Front_default, e.Sprites.Front_shiny, e.Stats.Where(e => e.Stat.Name == "hp").FirstOrDefault().Base_stat, e.Stats.Where(e => e.Stat.Name == "attack").FirstOrDefault().Base_stat, e.Stats.Where(e => e.Stat.Name == "defense").FirstOrDefault().Base_stat, e.Stats.Where(e => e.Stat.Name == "special-attack").FirstOrDefault().Base_stat, e.Stats.Where(e => e.Stat.Name == "special-defense").FirstOrDefault().Base_stat, e.Stats.Where(e => e.Stat.Name == "speed").FirstOrDefault().Base_stat, e.Types.Select(e => e.Type.Name).ToList())).ToList();
 
         }
     }
