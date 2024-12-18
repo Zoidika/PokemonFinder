@@ -1,4 +1,5 @@
-﻿using PokemonFinder.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using PokemonFinder.Models;
 
 namespace PokemonFinder.Services
 {
@@ -15,11 +16,13 @@ namespace PokemonFinder.Services
     public class PokemonAPIService
     {
         private readonly HttpClient httpClient;
+		private readonly PokemonService pokemonService;
 
-        public PokemonAPIService(HttpClient httpClient)
+		public PokemonAPIService(HttpClient httpClient, PokemonService pokemonService)
         {
             this.httpClient = httpClient;
-            httpClient.BaseAddress = new Uri("https://pokeapi-proxy.freecodecamp.rocks/");
+			this.pokemonService = pokemonService;
+			httpClient.BaseAddress = new Uri("https://pokeapi-proxy.freecodecamp.rocks/");
         }
         public async Task GetAllPokemon()
         {
@@ -53,7 +56,10 @@ namespace PokemonFinder.Services
             }
 
 
-            List<DBPokemon> dBPokemons = Pokemon.Select(e => new DBPokemon(e.Id, e.Name, e.Sprites.Back_default, e.Sprites.Back_shiny, e.Sprites.Front_default, e.Sprites.Front_shiny, e.Stats.Where(e => e.Stat.Name == "hp").FirstOrDefault().Base_stat, e.Stats.Where(e => e.Stat.Name == "attack").FirstOrDefault().Base_stat, e.Stats.Where(e => e.Stat.Name == "defense").FirstOrDefault().Base_stat, e.Stats.Where(e => e.Stat.Name == "special-attack").FirstOrDefault().Base_stat, e.Stats.Where(e => e.Stat.Name == "special-defense").FirstOrDefault().Base_stat, e.Stats.Where(e => e.Stat.Name == "speed").FirstOrDefault().Base_stat, e.Types.Select(e => e.Type.Name).ToList())).ToList();
+            List<DBPokemon> dBPokemons = Pokemon.Select(e => new DBPokemon(e.Id, e.Name, e.Sprites.Back_default, e.Sprites.Back_shiny, e.Sprites.Front_default, e.Sprites.Front_shiny, e.Stats.Where(e => e.Stat.Name == "hp").FirstOrDefault().Base_stat, e.Stats.Where(e => e.Stat.Name == "attack").FirstOrDefault().Base_stat, e.Stats.Where(e => e.Stat.Name == "defense").FirstOrDefault().Base_stat, e.Stats.Where(e => e.Stat.Name == "special-attack").FirstOrDefault().Base_stat, e.Stats.Where(e => e.Stat.Name == "special-defense").FirstOrDefault().Base_stat, e.Stats.Where(e => e.Stat.Name == "speed").FirstOrDefault().Base_stat)).ToList();
+
+            await pokemonService.FillDataBase(dBPokemons);
+
 
         }
     }

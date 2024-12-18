@@ -11,13 +11,15 @@ namespace PokemonFinder.Pages
         private readonly ILogger<IndexModel> _logger;
         private readonly PokemonAPIService service;
         private readonly SessionService sessionService;
+		private readonly PokemonService dBService;
 
-        public IndexModel(ILogger<IndexModel> logger, PokemonAPIService service, SessionService sessionService)
+		public IndexModel(ILogger<IndexModel> logger, PokemonAPIService service, SessionService sessionService, PokemonService DBService)
         {
             _logger = logger;
             this.service = service;
             this.sessionService = sessionService;
-        }
+			this.dBService = DBService;
+		}
         [BindProperty]
         public string SearchedID { get; set; }
         public Pokemon Pokemon { get; set; }
@@ -33,7 +35,7 @@ namespace PokemonFinder.Pages
             string Dog = "dog";
 
             Console.WriteLine(string.Join(" , , , , ", Horse, Dog));
-
+            List<DBPokemon> NewPokemons = await dBService.ReturnPokemonList();
 
 
         }
@@ -112,5 +114,7 @@ namespace PokemonFinder.Pages
             
             //await sessionService.GetItem<Pokemon>("CachedPokemon");
         }
+
+        
     }
 }

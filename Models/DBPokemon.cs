@@ -10,13 +10,17 @@
         public string Front_shiny { get; set; }
         public int HP { get; set; }
         public int Attack { get; set; }
-        public int Defence { get; set; }
+        public int Defense { get; set; }
         public int Special_attack { get; set; }
-        public int Special_defence { get; set; }
+        public int Special_defense { get; set; }
         public int Speed { get; set; }
-        public List<string> Type { get; set; }
+        //public List<string> Type { get; set; }
 
-        public DBPokemon(int id, string name, string back_d, string back_s, string front_d, string front_s, int hp, int att, int def, int special_att, int special_def, int speed, List<string> type)
+        private DBPokemon()
+        {
+
+        }
+        public DBPokemon(int id, string name, string back_d, string back_s, string front_d, string front_s, int hp, int att, int def, int special_att, int special_def, int speed)
         {
             Id = id;
             Name = name;
@@ -26,11 +30,12 @@
             Front_shiny = front_s;
             HP = hp;
             Attack = att;
-            Defence = def;
+            Defense = def;
             Special_attack = special_att;
-            Special_defence = special_def;
+            Special_defense = special_def;
             Speed = speed;
-            Type = type;
+            //Type = type;
+
         }
     }
 }
