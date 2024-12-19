@@ -25,6 +25,7 @@ namespace PokemonFinder.Pages
         public Pokemon Pokemon { get; set; }
         public bool IsShiny { get; set; } 
         public bool Error { get; set; }
+        public DBPokemon SelectedPokemon { get; set; }
         public async Task OnGet()
         {
             //await sessionService.SaveItem("Potato", "Fishy");
@@ -35,7 +36,8 @@ namespace PokemonFinder.Pages
             string Dog = "dog";
 
             Console.WriteLine(string.Join(" , , , , ", Horse, Dog));
-            List<DBPokemon> NewPokemons = await dBService.ReturnPokemonList();
+            //List<DBPokemon> NewPokemons = await dBService.ReturnPokemonList();
+            
 
 
         }
@@ -45,6 +47,7 @@ namespace PokemonFinder.Pages
             //var test = await sessionService.GetItem<string>("Fishy");
             sessionService.ClearSessionData();
             await sessionService.SaveItem(Pokemon, "CachedPokemon");
+            await sessionService.SaveItem(SelectedPokemon, "CachedPokemon2");
 
         }
         public async Task OnPostDownload()
@@ -56,11 +59,15 @@ namespace PokemonFinder.Pages
         public async Task OnPostRandom()
         {
             Pokemon = await sessionService.GetItem<Pokemon>("CachedPokemon");
+            Pokemon = await sessionService.GetItem<Pokemon>("CachedPokemon2");
             Random random = new Random();
-            int rando1 = random.Next(1, 1026);
+            //int rando1 = random.Next(1, 1026);
+            int rando1 = random.Next(1, 101);
             SearchedID = $"{rando1}";
             await GetData();
             await sessionService.SaveItem(Pokemon, "CachedPokemon");
+            await sessionService.SaveItem(SelectedPokemon, "CachedPokemon2");
+            List<DBPokemon> NewPokemons = await dBService.ReturnPokemonList();
         }
 
         public async Task OnPostShiny()
@@ -74,6 +81,7 @@ namespace PokemonFinder.Pages
         {
             
             Pokemon = await sessionService.GetItem<Pokemon>("CachedPokemon");
+            Pokemon = await sessionService.GetItem<Pokemon>("CachedPokemon2");
             var PokeId = Pokemon.Id;
             PokeId++;
             if(PokeId >= 1026)
@@ -81,14 +89,17 @@ namespace PokemonFinder.Pages
                 PokeId = 1;
             }
             SearchedID = PokeId.ToString();
+            List<DBPokemon> NewPokemons = await dBService.ReturnPokemonList();
             await GetData();
             await sessionService.SaveItem(Pokemon, "CachedPokemon");
+            await sessionService.SaveItem(SelectedPokemon, "CachedPokemon2");
             await sessionService.ClearItem("CachedShiny");
         }
 
         public async Task OnPostPrevious()
         {
             Pokemon = await sessionService.GetItem<Pokemon>("CachedPokemon");
+            Pokemon = await sessionService.GetItem<Pokemon>("CachedPokemon2");
             var PokeId = Pokemon.Id;
             PokeId--;
             if(PokeId <= 0)
@@ -96,8 +107,10 @@ namespace PokemonFinder.Pages
                 PokeId = 1025;
             }
             SearchedID = PokeId.ToString();
+            List<DBPokemon> NewPokemons = await dBService.ReturnPokemonList();
             await GetData();
             await sessionService.SaveItem(Pokemon, "CachedPokemon");
+            await sessionService.SaveItem(SelectedPokemon, "CachedPokemon2");
             await sessionService.ClearItem("CachedShiny");
         }
         public async Task GetData()
@@ -111,7 +124,16 @@ namespace PokemonFinder.Pages
             else {
                 Error = true;
             }
-            
+            List<DBPokemon> NewPokemons = await dBService.ReturnPokemonList();
+            if (SearchedID != null)
+            {
+                SelectedPokemon = NewPokemons.Where(e => e.Id == int.Parse(SearchedID)).First();
+            }
+            else
+            {
+                Error = true;
+            }
+
             //await sessionService.GetItem<Pokemon>("CachedPokemon");
         }
 
