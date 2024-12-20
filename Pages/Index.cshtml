@@ -14,6 +14,16 @@
     <form method="post" class="form">
         <button class="RandomButton" type="submit" asp-page-handler="Random">Random Pokemon</button>
         <button class="Download" type="submit" asp-page-handler="Download">Download</button>
+        <div>
+            <label>
+                API
+                <input asp-for="@Model.UsingAPI"  name="UsingAPI" value="true" class="radio" type="radio" />
+            </label>
+            <label>Database
+            <input asp-for="@Model.UsingAPI" name="UsingAPI" value="false" class="radio" type="radio" />
+            </label>
+        
+        </div>
     <label>Search for a pokemon using their Pokedex Id or Name:</label>
     <input type="text" asp-for="SearchedID" />
     <button type="submit" class="submit-button" asp-page-handler="">Submit search</button>
