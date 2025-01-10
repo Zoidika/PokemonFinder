@@ -1,0 +1,31 @@
+﻿@page
+@model PokemonFinder.Pages.Test2Model
+@{
+}
+
+<h1>Pokemaoznasasd</h1>
+
+<form method="post">
+    <label>
+        Search for a pokemon:
+    </label>
+    <input type="text" asp-for="SearchedId" />
+    <button type="submit" asp-page-handler="">Submit</button>
+
+
+    <button type="submit" asp-page-handler="Next">Next</button>
+    <button type="submit" asp-page-handler="Previous">Previous</button>
+
+    <button type="submit" asp-page-handler="ToggleShiny">Toggle Shiny</button>
+</form>
+@if (Model.SelectedPokemon != null)
+{
+    if(Model.IsShiny == true)
+    {
+        <img src="@Model.SelectedPokemon.Front_shiny" />
+    }
+    else 
+    {
+    <img src="@Model.SelectedPokemon.Front_default" />
+    }
+}

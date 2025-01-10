@@ -1,0 +1,25 @@
+﻿@page
+@model PokemonFinder.Pages.RemakeTestModel
+@{
+}
+
+<div>
+    <h1>Pokemonzz</h1>
+</div>
+
+<div>
+    <form method="post">
+        <label>
+            Search for a pokemon by number or name: 
+            </label>
+            <input type="text" asp-for="SearchedId"/>
+            <button type="submit" asp-page-handler="">Submit</button>
+        
+    </form>
+</div>
+
+<div>
+     @if(Model.SelectedPokemon != null) {
+    <img src="@Model.SelectedPokemon.Front_default" />
+    } 
+</div>
